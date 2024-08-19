@@ -41,7 +41,7 @@ if window_name == '1':
 
 paused = False
 
-# Ввод количества пропусков кликов
+# Input number of skipped clicks
 skip_count = int(input("[✅] | Enter the number of skipped clicks: "))
 print('Instruction: click q to stop or continue ')
 current_skip = 0
@@ -50,9 +50,9 @@ while True:
     if keyboard.is_pressed('q'):
         paused = not paused
         if paused:
-            print('[✅] | Pause.')
+            print('[✅] | Paused.')
         else:
-            print('[✅] | Continue')
+            print('[✅] | Continuing...')
         time.sleep(0.2)
 
     if paused:
@@ -64,7 +64,7 @@ while True:
         while not check:
             time.sleep(1)
             check = gw.getWindowsWithTitle(window_name)
-        print(f"[✅] | Window found - {window_name}\n[✅] | Click \'q\' for a pause.")
+        print(f"[✅] | Window found - {window_name}\n[✅] | Click 'q' to pause.")
 
     telegram_window = check[0]
 
@@ -90,15 +90,15 @@ while True:
             if (b in range(0, 125)) and (r in range(102, 220)) and (g in range(200, 255)):
                 if current_skip < skip_count:
                     current_skip += 1
-                    continue  # Пропуск нажатия
+                    continue  # Skip click
 
-                # Сброс счетчика пропусков после достижения заданного количества
+                # Reset skip counter after reaching the specified number
                 current_skip = 0
 
                 screen_x = window_rect[0] + x
                 screen_y = window_rect[1] + y
                 click(screen_x + 4, screen_y)
-                time.sleep(0.001)
+                time.sleep(random.uniform(0.001, 0.005))  # Slightly randomize click intervals
                 pixel_found = True
 
 print('[✅] | Stopped.')
